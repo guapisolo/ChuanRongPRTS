@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+	"build": "vite build && npm run copy",
+    "copy": "xcopy /E /I /Y dist\\* ..\\src\\main\\resources\\static",
     "preview": "vite preview"
   },
   "dependencies": {
