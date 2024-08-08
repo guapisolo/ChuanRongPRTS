@@ -6,7 +6,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import {
     getCurrentInstance, reactive, toRefs,
     watch //监听器

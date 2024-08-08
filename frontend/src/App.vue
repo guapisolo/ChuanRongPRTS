@@ -1,19 +1,10 @@
 <template>
 	<div id="app">
-		<h1>川蓉联盟PRTS</h1>
-		<div class="container">
-			<carousel :autoplay="true" :duration="3000" :initialIndex="0" :hasDots="true" :hasDirector="true">
-				<car-item v-for="(item, index) in carData" :key="index">
-					<img class="img" :src="getImageSrc(item.img_name)" />
-				</car-item>
-			</carousel>
-		</div>
-		<p>(本页面由川蓉联盟技术组开发)</p>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
-
 import carData from './data/carousel'
 
 export default {

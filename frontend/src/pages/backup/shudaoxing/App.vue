@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <h1 style="text-align: center;">{{ selectedOption }}团队总分：{{ _teamtotal }} </h1>
+            <h1 style="text-align: center;">{{ selectedOption }}团队总分：{{ team_total }} </h1>
             <component is="bigsubtitle" :text="'个人得分'"></component>
             <div class="app-column-container">
                 <div class="app-column-1">
@@ -278,7 +278,7 @@
                     </div>
                 </div>
             </div>
-            <h1 style="text-align: center;">选手总分：{{ _total }} </h1>
+            <h1 style="text-align: center;">选手总分：{{ personal_total }} </h1>
             <component is="bigsubtitle" :text="'年代说明'"></component>
             <div class="info-column-container">
                 <div class="info-column-1">
@@ -341,18 +341,18 @@ export default {
             total_ban: 3650,
             total_coins: 0,
             total_player: 0,
-            _teamtotal: 0,
+            team_total: 0,
             initial_value: 0,
             total_end: 0,
             total_urgent: 0,
             total_penalty: 0,
             total_settlement: 0,
             total_era: 0,
-            _total: 0
+            personal_total: 0
         };
     },
     methods: {
-        recalTotal(newResult) {
+        recalTotal() {
             // 更新 result 的值
             let ban_sum = Object.keys(this.$refs)
                 .filter(ref => ref.startsWith('ban'))
@@ -399,11 +399,11 @@ export default {
                 .filter(ref => ref.startsWith('era'))
                 .reduce((total, ref) => total + this.$refs[ref].result, 0);
 
-            this._total = this.total_end + this.total_era
+            this.personal_total = this.total_end + this.total_era
                 + this.total_urgent + this.total_speical
                 + this.total_settlement;
 
-            this._teamtotal = this.total_ban + this.total_coins + this.total_player;
+            this.team_total = this.total_ban + this.total_coins + this.total_player;
         }
     },
     computed: {
@@ -411,7 +411,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .centered-select {
     display: flex;
     justify-content: center;
@@ -421,7 +421,7 @@ export default {
 .custom-select {
     padding: 10px;
     font-size: 16px;
-    background: url('../assets/input.png') no-repeat right center;
+    background: url('assets/input.png') no-repeat right center;
     background-size: 20px auto;/* 调整背景图片的大小 */
     -webkit-appearance: none;/* 隐藏默认的下拉箭头 */
     -moz-appearance: none;/* 隐藏默认的下拉箭头 */
