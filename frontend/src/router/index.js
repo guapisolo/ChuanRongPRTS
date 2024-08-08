@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/HomePage.vue';
 import yonghengbeiCalculator from '@/pages/backup/yonghengbei/App.vue';
 import shudaoxingCalculator from '@/pages/backup/shudaoxing/App.vue';
+import shudaoxingIndex from '@/pages/index/shudaoxing/App.vue';
 import NotFound from '@/pages/NotFound.vue';
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
 		path: '/shudaoxing/calculator',
 		name: 'shudaoxing_calculator',
 		component: shudaoxingCalculator
+	},
+	{
+		path: '/shudaoxing/index',
+		name: 'shudaoxing_index',
+		component: shudaoxingIndex
 	},
 	{
 		path: '/:catchAll(.*)',

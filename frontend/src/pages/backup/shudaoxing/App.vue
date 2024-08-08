@@ -351,6 +351,9 @@ export default {
             personal_total: 0
         };
     },
+    mounted() {
+    document.title = '蜀道行计算器'; // 动态设置页面标题
+  },
     methods: {
         recalTotal() {
             // 更新 result 的值

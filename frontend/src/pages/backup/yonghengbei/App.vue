@@ -274,6 +274,9 @@ export default {
             personal_total: 0
         };
     },
+    mounted() {
+    document.title = '永恒杯计算器'; // 动态设置页面标题
+  },
     methods: {
         recalTotal() {
             // 更新 result 的值
