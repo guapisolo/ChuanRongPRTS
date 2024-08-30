@@ -1,4 +1,4 @@
 # ChuanRongPRTS
 
-cd frontend && npm run build
+cd frontend && npm run serve
 mvn spring-boot:run

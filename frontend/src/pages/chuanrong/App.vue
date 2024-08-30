@@ -3,71 +3,73 @@
 		<form @submit.prevent="submitForm">
 			<!-- 表单字段 -->
 			<div>
-				<label>
-					<input type="radio" v-model="formData.name" value="urgent_dqyp" />
-					大棋一盘(30)
-				</label>
-				<label>
-					<input type="radio" v-model="formData.name" value="urgent_dqyp2" />
-					大棋一盘无盾(50)
-				</label>
-				<label>
-					<input type="radio" v-model="formData.name" value="urgent_xmzb" />
-					血脉之辩(0)
-				</label>
-				<label>
-					<input type="radio" v-model="formData.name" value="urgent_ztbr" />
-					遮天蔽日(0)
-				</label>
-				<label>
-					<input type="radio" v-model="formData.name" value="urgent_lzdqc" />
-					劳作的清晨(0)
-				</label>
+				<div v-if="urgentMap">
+					<label v-for="(info, key) in urgentMap" :key="key">
+						<input type="radio" v-model="formData.name" :value="key" />
+						{{ info.label }} ({{ info.score }})
+					</label>
+				</div>
 			</div>
-			<div>
+			<!-- <div>
 				<label>
 					<input type="radio" v-model="formData.age" value="age_null" />
 					无年代
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age" value="age_tz" />
-					天灾年代
+					<input type="radio" v-model="formData.age" value="age_tz1" />
+					天灾年代1
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age" value="age_jr" />
+					<input type="radio" v-model="formData.age" value="age_tz2" />
+					天灾年代2
+				</label>
+				<label>
+					<input type="radio" v-model="formData.age" value="age_tz3" />
+					天灾年代3
+				</label>
+				<label>
+					<input type="radio" v-model="formData.age" value="age_jr1" />
 					金融年代
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age" value="age_yj" />
+					<input type="radio" v-model="formData.age" value="age_yj1" />
 					拥挤年代
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age" value="age_qg" />
+					<input type="radio" v-model="formData.age" value="age_qg1" />
 					奇观年代
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age" value="age_kn" />
+					<input type="radio" v-model="formData.age" value="age_kn1" />
 					苦难年代
 				</label>
 			</div>
 			<div>
 				<label>
-					<input type="radio" v-model="formData.age_value" value="0" />
-					0
+					<input type="checkbox" v-model="formData.collect.nj" value="collect_nj" />
+					宁静之谜
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age_value" value="1" />
-					1
+					<input type="checkbox" v-model="formData.collect.ja" value="collect_ja" />
+					惧傲之谜
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age_value" value="2" />
-					2
+					<input type="checkbox" v-model="formData.collect.ys" value="collect_ys" />
+					预示之谜
 				</label>
 				<label>
-					<input type="radio" v-model="formData.age_value" value="3" />
-					3
+					<input type="checkbox" v-model="formData.collect.jj" value="collect_jj" />
+					结晶之谜
 				</label>
-			</div>
+				<label>
+					<input type="checkbox" v-model="formData.collect.ly" value="collect_ly" />
+					烙印之谜
+				</label>
+				<label>
+					<input type="checkbox" v-model="formData.collect.xs" value="collect_xs" />
+					血税之谜
+				</label>
+			</div> -->
 			<button type="submit">Submit</button>
 		</form>
 		<div v-if="responseMessage">
@@ -77,7 +79,8 @@
 			<h3>Response Data:</h3>
 			<p>Name: {{ responseData.name }}</p>
 			<p>Age: {{ responseData.age }}</p>
-			<p>Age_value: {{ responseData.age_value }}</p>
+			<p>Collect: {{ responseData.collect }}</p>
+
 		</div>
 	</div>
 </template>
@@ -89,14 +92,24 @@ export default {
 	data() {
 		return {
 			formData: {
-				name: '',
-				age: '',
-				age_value: '',
-				tree_hole: ''
+				name: "urgent_null",
+				age: "age_null",
+				collect: {
+					nj: false,
+					ja: false,
+					ys: false,
+					jj: false,
+					ly: false,
+					xs: false
+				}
 			},
-			responseMessage: '',
-			responseData: null
+			responseMessage: "",
+			responseData: null,
+			urgentMap: null
 		};
+	},
+	mounted() {
+		this.fetchUrgentMap();
 	},
 	methods: {
 		async submitForm() {
@@ -108,6 +121,14 @@ export default {
 				this.responseMessage = 'Error: ' + error.message;
 				this.responseData = null;
 			}
+		},
+		async fetchUrgentMap() {
+			try {
+				const response = await axios.get('http://localhost:8181/chuanrong/urgentMap');
+				this.urgentMap = response.data;
+			} catch (error) {
+				console.error('Error fetching urgentMap:', error);
+			}
 		}
 	}
 };
@@ -115,6 +136,6 @@ export default {
 
 <style scoped>
 * {
-  color: white;
+	color: white;
 }
 </style>
