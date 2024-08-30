@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.TreeMap;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -139,10 +137,10 @@ public class ChuanrongController {
 		response.info = "temp";
 		response.score = (1.0 + multiplier / 100.0) * (baseScore + ageScore);
 
-		System.out.println(baseScore);
-		System.out.println(ageScore);
-		System.out.println(multiplier);
-		System.out.println(response.score);
+		// System.out.println(baseScore);
+		// System.out.println(ageScore);
+		// System.out.println(multiplier);
+		// System.out.println(response.score);
 		return ResponseEntity.ok(response);
 	}
 }

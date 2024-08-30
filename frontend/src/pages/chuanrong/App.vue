@@ -33,11 +33,20 @@
 		</div>
 		<div v-if="responseData">
 			<h3>Response Data:</h3>
-			<p>Name: {{ responseData.name }}</p>
-			<p>Age: {{ responseData.age }}</p>
-			<p>Collect: {{ responseData.collect }}</p>
-			<p>Collect: {{ responseData.info }}</p>
-			<p>Collect: {{ responseData.score }}</p>
+			<p>Info: {{ responseData.info }}</p>
+			<p>Score: {{ responseData.score }}</p>
+		</div>
+		<div>
+			<h3>Response History:</h3>
+			<ul>
+				<li v-for="(response, index) in responseHistory" :key="index">
+					<p>Info: {{ response.info }}</p>
+					<p>Score: {{ response.score }}</p>
+				</li>
+			</ul>
+		</div>
+		<div v-if="responseHistory.length >= 0">
+			<h3>Total Score: {{ totalScore }}</h3>
 		</div>
 	</div>
 </template>
@@ -62,10 +71,16 @@ export default {
 			},
 			responseMessage: "",
 			responseData: null,
+			responseHistory: [],
 			urgentMap: null,
 			ageMap: null,
 			collectMap: null
 		};
+	},
+	computed: {
+		totalScore() {
+			return this.responseHistory.reduce((sum, response) => sum + response.score, 0);
+		}
 	},
 	mounted() {
 		this.fetchUrgentMap();
@@ -78,7 +93,7 @@ export default {
 				const response = await axios.post('http://localhost:8181/chuanrong/submit', this.formData);
 				this.responseMessage = 'Form submitted successfully!';
 				this.responseData = response.data; // 解析并绑定响应数据
-
+				this.responseHistory.push({ ...this.responseData }); // 保存 responseData 的副本
 			} catch (error) {
 				this.responseMessage = 'Error: ' + error.message;
 				this.responseData = null;
