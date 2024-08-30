@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.TreeMap;
 import java.util.Map;
 
@@ -27,7 +28,8 @@ public class ChuanrongController {
 
 	public static final Map<String, Info> urgentMap;
 	static {
-		urgentMap = new TreeMap<>();
+		urgentMap = new LinkedHashMap<>();
+		urgentMap.put("urgent_null", new Info("无关卡", 0));
 		urgentMap.put("urgent_dqyp", new Info("大棋一盘", 30));
 		urgentMap.put("urgent_dqyp_plus", new Info("大棋一盘plus", 20));
 		urgentMap.put("urgent_xmzb", new Info("血脉之辩", 0));
@@ -37,7 +39,7 @@ public class ChuanrongController {
 
 	public static final Map<String, Info> ageMap;
 	static {
-		ageMap = new HashMap<>();
+		ageMap = new LinkedHashMap<>();
 		ageMap.put("age_null", new Info("无年代", 0));
 		ageMap.put("age_tz1", new Info("天灾年代1", 5));
 		ageMap.put("age_tz2", new Info("天灾年代2", 10));
@@ -46,13 +48,13 @@ public class ChuanrongController {
 
 	public static final Map<String, Info> collectMap;
 	static {
-		collectMap = new HashMap<>();
-		collectMap.put("collect_nj", new Info("宁静之谜", 15));
-		collectMap.put("collect_ja", new Info("惧傲之谜", 10));
-		// collectMap.put("collect_ys", 10);
-		// collectMap.put("collect_jj", 10);
-		// collectMap.put("collect_ly", 10);
-		// collectMap.put("collect_xs", 5);
+		collectMap = new LinkedHashMap<>();
+		collectMap.put("nj", new Info("宁静之谜", 15));
+		collectMap.put("ja", new Info("惧傲之谜", 10));
+		collectMap.put("ys", new Info("3之谜", 10));
+		collectMap.put("jj", new Info("4之谜", 10));
+		collectMap.put("ly", new Info("5之谜", 10));
+		collectMap.put("xs", new Info("6之谜", 5));
 	}
 
 	public static class Collect {
@@ -86,36 +88,61 @@ public class ChuanrongController {
 	// response.put("age", ageMap.get(age));
 	// return ResponseEntity.ok(response);
 	// }
-	
+
 	@GetMapping("/urgentMap")
 	public ResponseEntity<Map<String, Info>> getUrgentMap() {
 		return ResponseEntity.ok(urgentMap);
 	};
 
-	// @PostMapping("/submit")
-	// public ResponseEntity<ResponseData> handleFormSubmit(@RequestBody FormData formData) {
-	// 	String name = formData.name;
-	// 	String age = formData.age;
-	// 	Collect collect = formData.collect;
+	@GetMapping("/ageMap")
+	public ResponseEntity<Map<String, Info>> getAgeMap() {
+		return ResponseEntity.ok(ageMap);
+	};
 
-	// 	// 处理表单数据，例如添加前缀或其他操作
-	// 	// Integer baseScore = urgentMap.get(name);
-	// 	// Integer ageScore = ageMap.get(age);
+	@GetMapping("/collectMap")
+	public ResponseEntity<Map<String, Info>> getCollectMap() {
+		return ResponseEntity.ok(collectMap);
+	};
 
-	// 	// 处理 Collect 类型中的所有布尔字段
-	// 	// Integer multiplier = 0;
-	// 	// for (Field field : Collect.class.getDeclaredFields()) {
-	// 	// try {
-	// 	// if (field.getType() == boolean.class && field.getBoolean(collect)) {
-	// 	// multiplier += collectMap.getOrDefault("collect_" + field.getName(), 0);
-	// 	// }
-	// 	// } catch (IllegalAccessException e) {
-	// 	// e.printStackTrace();
-	// 	// }
-	// 	// }
-	// 	ResponseData response = new ResponseData();
-	// 	response.score = (1.0 + multiplier / 100.0) * (baseScore + ageScore);
+	@PostMapping("/submit")
+	public ResponseEntity<ResponseData> handleFormSubmit(@RequestBody FormData formData) {
+		String name = formData.name;
+		String age = formData.age;
+		Collect collect = formData.collect;
 
-	// 	return ResponseEntity.ok(response);
-	// }
+		// 处理表单数据，例如添加前缀或其他操作
+		Integer baseScore = urgentMap.get(name).score;
+		Integer ageScore = ageMap.get(age).score;
+
+		// 处理 Collect 类型中的所有布尔字段
+		Integer multiplier = 0;
+		if (collect.nj) {
+			multiplier += collectMap.get("nj").score;
+		}
+		if (collect.ja) {
+			multiplier += collectMap.get("ja").score;
+		}
+		if (collect.ys) {
+			multiplier += collectMap.get("ys").score;
+		}
+		if (collect.jj) {
+			multiplier += collectMap.get("jj").score;
+		}
+		if (collect.ly) {
+			multiplier += collectMap.get("ly").score;
+		}
+		if (collect.xs) {
+			multiplier += collectMap.get("xs").score;
+		}
+
+		ResponseData response = new ResponseData();
+		response.info = "temp";
+		response.score = (1.0 + multiplier / 100.0) * (baseScore + ageScore);
+
+		System.out.println(baseScore);
+		System.out.println(ageScore);
+		System.out.println(multiplier);
+		System.out.println(response.score);
+		return ResponseEntity.ok(response);
+	}
 }
