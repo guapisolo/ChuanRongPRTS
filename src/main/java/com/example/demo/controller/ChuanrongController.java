@@ -112,29 +112,36 @@ public class ChuanrongController {
 		Integer baseScore = urgentMap.get(name).score;
 		Integer ageScore = ageMap.get(age).score;
 
+		ResponseData response = new ResponseData();
+		response.info = urgentMap.get(name).label + " , " + ageMap.get(age).label;
+
 		// 处理 Collect 类型中的所有布尔字段
 		Integer multiplier = 0;
 		if (collect.nj) {
 			multiplier += collectMap.get("nj").score;
+			response.info += " , " + collectMap.get("nj").label;
 		}
 		if (collect.ja) {
 			multiplier += collectMap.get("ja").score;
+			response.info += " , " + collectMap.get("ja").label;
 		}
 		if (collect.ys) {
 			multiplier += collectMap.get("ys").score;
+			response.info += " , " + collectMap.get("ys").label;
 		}
 		if (collect.jj) {
 			multiplier += collectMap.get("jj").score;
+			response.info += " , " + collectMap.get("jj").label;
 		}
 		if (collect.ly) {
 			multiplier += collectMap.get("ly").score;
+			response.info += " , " + collectMap.get("ly").label;
 		}
 		if (collect.xs) {
 			multiplier += collectMap.get("xs").score;
+			response.info += " , " + collectMap.get("xs").label;
 		}
 
-		ResponseData response = new ResponseData();
-		response.info = "temp";
 		response.score = (1.0 + multiplier / 100.0) * (baseScore + ageScore);
 
 		// System.out.println(baseScore);
