@@ -34,9 +34,9 @@
 			</div>
 			<button type="submit">Submit</button>
 		</form>
-		<div v-if="responseMessage">
+		<!-- <div v-if="responseMessage">
 			{{ responseMessage }}
-		</div>
+		</div> -->
 		<!-- <div v-if="responseData">
 			<h3>Response Data:</h3>
 			<p>Info: {{ responseData.info }}</p>
@@ -45,8 +45,8 @@
 		<div>
 		</div>
 		<div v-if="responseHistory.length >= 0">
-			<h3>Response History:</h3>
 			<h3>Total Score: {{ totalScore }}</h3>
+			<h3>Response History:</h3>
 			<ul>
 				<li v-for="(response, index) in responseHistory" :key="index">
 					{{ response.info }}:

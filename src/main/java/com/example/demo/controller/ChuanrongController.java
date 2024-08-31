@@ -39,12 +39,12 @@ public class ChuanrongController {
 		stageMap.put("urgent_cdbx", new Info("拆东补西清刺", 15));
 		stageMap.put("urgent_yxqc", new Info("有序清场清刺", 20));
 		stageMap.put("urgent_dqyp", new Info("大棋一盘", 30));
-		stageMap.put("urgent_dqyp_plus", new Info("大棋一盘plus", 50));
+		stageMap.put("urgent_dqyp_plus", new Info("大棋一盘苦难年代无藏", 50));
 		stageMap.put("urgent_klmd", new Info("溃乱魔典", 40));
 		stageMap.put("urgent_nddc", new Info("年代断层清刺", 40));
 		stageMap.put("urgent_jxdc", new Info("假想对冲", 30));
 		stageMap.put("urgent_xhyd", new Info("猩红甬道", 40));
-		stageMap.put("urgent_xhyd_plus", new Info("猩红甬道奇观", 50));
+		stageMap.put("urgent_xhyd_plus", new Info("猩红甬道奇观年代", 50));
 		stageMap.put("urgent_wztm", new Info("巫咒同盟", 20));
 		stageMap.put("urgent_jhgz", new Info("计划耕种", 40));
 		stageMap.put("urgent_tdfs", new Info("通道封锁", 40));
@@ -54,18 +54,27 @@ public class ChuanrongController {
 		
 		stageMap.put("urgent_hrms", new Info("或然面纱", 40));
 		stageMap.put("urgent_lgdty", new Info("离歌的庭院", 50));
+
+		stageMap.put("end_1", new Info("紧急授课一结局", 100));
+		stageMap.put("end_2", new Info("朝谒二结局", 250));
+		stageMap.put("end_3", new Info("圣城三结局", 300));
+		stageMap.put("end_swhl_1", new Info("思维混乱一结局（额外加分）", 20));
+		stageMap.put("end_swhl_23", new Info("思维混乱二三结局（额外加分）", 50));
+		stageMap.put("end_qg", new Info("奇观年代完成结局（额外加分）", 50));
+		stageMap.put("end_mw_12", new Info("魔王年代完成一二结局（额外加分）", 20));
+		stageMap.put("end_mw_3", new Info("魔王年代完成三结局（额外加分）", 50));
 	}
 
 	public static final Map<String, Info> ageMap;
 	static {
 		ageMap = new LinkedHashMap<>();
-		ageMap.put("age_null", new Info("无年代", 0));
+		ageMap.put("age_null", new Info("无年代加分", 0, "：无年代，繁荣年代，魔王年代，哲学年代，悖论年代"));
 		ageMap.put("age_tz1", new Info("天灾年代1", 5, "：清理至少2根年代之刺"));
 		ageMap.put("age_tz2", new Info("天灾年代2", 10, "：清理至少3根年代之刺，饮泣之刺视为3根年代之刺"));
 		ageMap.put("age_tz3", new Info("天灾年代3", 15, "：清理至少4根年代之刺，饮泣之刺视为3根年代之刺"));
 		ageMap.put("age_jr1", new Info("金融年代1", 10, "：全程无漏通关"));
 		ageMap.put("age_jr2", new Info("金融年代2", 20, "：持有巴别塔誓言或思绪混乱进入战斗并无漏"));
-		ageMap.put("age_jr2", new Info("金融年代3", 40, "：同时持有思绪混乱和巴别塔誓言进入战斗并无漏"));
+		ageMap.put("age_jr3", new Info("金融年代3", 40, "：同时持有思绪混乱和巴别塔誓言进入战斗并无漏"));
 		ageMap.put("age_yj1", new Info("拥挤年代1", 15, "：同时部署人数小于等于3完成战斗"));
 		ageMap.put("age_yj2", new Info("拥挤年代2",25, "：同时部署人数小于等于3无漏过关"));
 		ageMap.put("age_yj3", new Info("拥挤年代3", 40, "：同时部署人数小于等于2无漏过关"));
@@ -146,33 +155,33 @@ public class ChuanrongController {
 		Integer ageScore = ageMap.get(age).score;
 
 		ResponseData response = new ResponseData();
-		response.info = stageMap.get(name).label + " , " + ageMap.get(age).label;
+		response.info = stageMap.get(name).label + ", " + ageMap.get(age).label;
 
 		// 处理 Collect 类型中的所有布尔字段
 		Integer multiplier = 0;
 		if (collect.nj) {
 			multiplier += collectMap.get("nj").score;
-			response.info += " , " + collectMap.get("nj").label;
+			response.info += ", " + collectMap.get("nj").label;
 		}
 		if (collect.ja) {
 			multiplier += collectMap.get("ja").score;
-			response.info += " , " + collectMap.get("ja").label;
+			response.info += ", " + collectMap.get("ja").label;
 		}
 		if (collect.ys) {
 			multiplier += collectMap.get("ys").score;
-			response.info += " , " + collectMap.get("ys").label;
+			response.info += ", " + collectMap.get("ys").label;
 		}
 		if (collect.jj) {
 			multiplier += collectMap.get("jj").score;
-			response.info += " , " + collectMap.get("jj").label;
+			response.info += ", " + collectMap.get("jj").label;
 		}
 		if (collect.ly) {
 			multiplier += collectMap.get("ly").score;
-			response.info += " , " + collectMap.get("ly").label;
+			response.info += ", " + collectMap.get("ly").label;
 		}
 		if (collect.xs) {
 			multiplier += collectMap.get("xs").score;
-			response.info += " , " + collectMap.get("xs").label;
+			response.info += ", " + collectMap.get("xs").label;
 		}
 
 		response.score = (1.0 + multiplier / 100.0) * (baseScore + ageScore);
