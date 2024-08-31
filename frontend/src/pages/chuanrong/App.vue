@@ -37,16 +37,17 @@
 			<p>Score: {{ responseData.score }}</p>
 		</div>
 		<div>
+		</div>
+		<div v-if="responseHistory.length >= 0">
 			<h3>Response History:</h3>
+			<h3>Total Score: {{ totalScore }}</h3>
 			<ul>
 				<li v-for="(response, index) in responseHistory" :key="index">
 					<p>Info: {{ response.info }}</p>
 					<p>Score: {{ response.score }}</p>
+					<button @click="removeResponse(index)">Delete</button>
 				</li>
 			</ul>
-		</div>
-		<div v-if="responseHistory.length >= 0">
-			<h3>Total Score: {{ totalScore }}</h3>
 		</div>
 	</div>
 </template>
@@ -98,6 +99,9 @@ export default {
 				this.responseMessage = 'Error: ' + error.message;
 				this.responseData = null;
 			}
+		},
+		removeResponse(index) {
+			this.responseHistory.splice(index, 1);
 		},
 		async fetchUrgentMap() {
 			try {
