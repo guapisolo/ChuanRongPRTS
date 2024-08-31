@@ -55,14 +55,14 @@ public class ChuanrongController {
 		stageMap.put("urgent_hrms", new Info("或然面纱", 40));
 		stageMap.put("urgent_lgdty", new Info("离歌的庭院", 50));
 
-		stageMap.put("end_1", new Info("紧急授课一结局", 100));
-		stageMap.put("end_2", new Info("朝谒二结局", 250));
-		stageMap.put("end_3", new Info("圣城三结局", 300));
-		stageMap.put("end_swhl_1", new Info("思维混乱一结局（额外加分）", 20));
-		stageMap.put("end_swhl_23", new Info("思维混乱二三结局（额外加分）", 50));
-		stageMap.put("end_qg", new Info("奇观年代完成结局（额外加分）", 50));
-		stageMap.put("end_mw_12", new Info("魔王年代完成一二结局（额外加分）", 20));
-		stageMap.put("end_mw_3", new Info("魔王年代完成三结局（额外加分）", 50));
+		stageMap.put("end_1", new Info("一结局紧急授课", 100));
+		stageMap.put("end_2", new Info("二结局朝谒", 250));
+		stageMap.put("end_3", new Info("三结局圣城", 300));
+		// stageMap.put("end_swhl_1", new Info("思维混乱一结局（额外加分）", 20));
+		// stageMap.put("end_swhl_23", new Info("思维混乱二三结局（额外加分）", 50));
+		// stageMap.put("end_qg", new Info("奇观年代完成结局（额外加分）", 50));
+		// stageMap.put("end_mw_12", new Info("魔王年代完成一二结局（额外加分）", 20));
+		// stageMap.put("end_mw_3", new Info("魔王年代完成三结局（额外加分）", 50));
 	}
 
 	public static final Map<String, Info> ageMap;
