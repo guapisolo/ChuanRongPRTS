@@ -3,26 +3,32 @@
 		<form @submit.prevent="submitForm">
 			<!-- 表单字段 -->
 			<div>
-				<div v-if="urgentMap">
-					<label v-for="(info, key) in urgentMap" :key="key">
+				<h3>关卡</h3>
+				<div v-if="stageMap">
+					<label v-for="(info, key) in stageMap" :key="key">
 						<input type="radio" v-model="formData.name" :value="key" />
 						{{ info.label }} ({{ info.score }})
+						<br>
 					</label>
 				</div>
 			</div>
 			<div>
+				<h3>年代</h3>
 				<div v-if="ageMap">
 					<label v-for="(info, key) in ageMap" :key="key">
 						<input type="radio" v-model="formData.age" :value="key" />
-						{{ info.label }} ({{ info.score }})
+						{{ info.label }}{{ info.description }} ({{ info.score }})
+						<br>
 					</label>
 				</div>
 			</div>
 			<div>
+				<h3>树洞藏品</h3>
 				<div v-if="collectMap">
 					<label v-for="(info, key) in collectMap" :key="key">
 						<input type="checkbox" v-model="formData.collect[key]" :value="key" />
 						{{ info.label }} ({{ info.score }})
+						<br>
 					</label>
 				</div>
 			</div>
@@ -31,11 +37,11 @@
 		<div v-if="responseMessage">
 			{{ responseMessage }}
 		</div>
-		<div v-if="responseData">
+		<!-- <div v-if="responseData">
 			<h3>Response Data:</h3>
 			<p>Info: {{ responseData.info }}</p>
 			<p>Score: {{ responseData.score }}</p>
-		</div>
+		</div> -->
 		<div>
 		</div>
 		<div v-if="responseHistory.length >= 0">
@@ -43,8 +49,8 @@
 			<h3>Total Score: {{ totalScore }}</h3>
 			<ul>
 				<li v-for="(response, index) in responseHistory" :key="index">
-					<p>Info: {{ response.info }}</p>
-					<p>Score: {{ response.score }}</p>
+					{{ response.info }}:
+					Score: {{ response.score }}
 					<button @click="removeResponse(index)">Delete</button>
 				</li>
 			</ul>
@@ -73,7 +79,7 @@ export default {
 			responseMessage: "",
 			responseData: null,
 			responseHistory: [],
-			urgentMap: null,
+			stageMap: null,
 			ageMap: null,
 			collectMap: null
 		};
@@ -84,7 +90,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.fetchUrgentMap();
+		this.fetchStageMap();
 		this.fetchAgeMap();
 		this.fetchCollectMap();
 	},
@@ -103,12 +109,12 @@ export default {
 		removeResponse(index) {
 			this.responseHistory.splice(index, 1);
 		},
-		async fetchUrgentMap() {
+		async fetchStageMap() {
 			try {
-				const response = await axios.get('http://localhost:8181/chuanrong/urgentMap');
-				this.urgentMap = response.data;
+				const response = await axios.get('http://localhost:8181/chuanrong/stageMap');
+				this.stageMap = response.data;
 			} catch (error) {
-				console.error('Error fetching urgentMap:', error);
+				console.error('Error fetching stageMap:', error);
 			}
 		},
 		async fetchAgeMap() {
