@@ -58,6 +58,9 @@
 								<component is="input-text" ref="ban_yns" :label="'伊内丝'" :multiplier="75"
 									@text-input-changed="recalTotal">
 								</component>
+								<component is="input-text" ref="extrasix" :label="'额外六星'" :multiplier="300"
+									@text-input-changed="recalTotal">
+								</component>
 							</div>
 						</table>
 						<div class="summary">总分：{{ total_ban }} </div>
@@ -113,9 +116,6 @@
 						@text-input-changed="recalTotal">
 					</component>
 					<component is="input-text" ref="special5" :label="'击杀鸭狗熊鼠门'" :multiplier="5"
-						@text-input-changed="recalTotal">
-					</component>
-					<component is="input-text" ref="extrasix" :label="'额外六星'" :multiplier="300"
 						@text-input-changed="recalTotal">
 					</component>
 				</table>
