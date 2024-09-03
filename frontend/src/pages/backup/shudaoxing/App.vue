@@ -99,8 +99,6 @@
             <component is="bigsubtitle" :text="'个人得分'"></component>
             <div class="app-column-container">
                 <div class="app-column-1">
-
-
                     <div>
                         <component is="subtitle" :text="'特殊关卡'"></component>
                         <table>

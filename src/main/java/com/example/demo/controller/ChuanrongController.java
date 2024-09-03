@@ -51,24 +51,23 @@ public class ChuanrongController {
 		stageMap.put("urgent_jrccx", new Info("寄人城池下", 30));
 		stageMap.put("urgent_mqgs", new Info("谋求共识", 60));
 		stageMap.put("urgent_ssdkq", new Info("神圣的渴求", 50));
-		
+
 		stageMap.put("urgent_hrms", new Info("或然面纱", 40));
 		stageMap.put("urgent_lgdty", new Info("离歌的庭院", 50));
 
 		stageMap.put("end_1", new Info("一结局紧急授课", 100));
 		stageMap.put("end_2", new Info("二结局朝谒", 250));
 		stageMap.put("end_3", new Info("三结局圣城", 300));
-		// stageMap.put("end_swhl_1", new Info("思维混乱一结局（额外加分）", 20));
-		// stageMap.put("end_swhl_23", new Info("思维混乱二三结局（额外加分）", 50));
-		// stageMap.put("end_qg", new Info("奇观年代完成结局（额外加分）", 50));
-		// stageMap.put("end_mw_12", new Info("魔王年代完成一二结局（额外加分）", 20));
-		// stageMap.put("end_mw_3", new Info("魔王年代完成三结局（额外加分）", 50));
+		stageMap.put("end_1_swhl", new Info("思维混乱一结局", 120));
+		stageMap.put("end_2_swhl", new Info("思维混乱二结局", 300));
+		stageMap.put("end_3_swhl", new Info("思维混乱三结局", 350));
 	}
 
 	public static final Map<String, Info> ageMap;
 	static {
 		ageMap = new LinkedHashMap<>();
-		ageMap.put("age_null", new Info("无年代加分", 0, "：无年代，繁荣年代，魔王年代，哲学年代，悖论年代"));
+		ageMap.put("age_null", new Info("无年代加分", 0, "：无年代，繁荣年代，哲学年代，悖论年代"));
+		ageMap.put("age_mw", new Info("魔王年代", 0, "：完成结局(20, 50, 50)"));
 		ageMap.put("age_tz1", new Info("天灾年代1", 5, "：清理至少2根年代之刺"));
 		ageMap.put("age_tz2", new Info("天灾年代2", 10, "：清理至少3根年代之刺，饮泣之刺视为3根年代之刺"));
 		ageMap.put("age_tz3", new Info("天灾年代3", 15, "：清理至少4根年代之刺，饮泣之刺视为3根年代之刺"));
@@ -76,7 +75,7 @@ public class ChuanrongController {
 		ageMap.put("age_jr2", new Info("金融年代2", 20, "：持有巴别塔誓言或思绪混乱进入战斗并无漏"));
 		ageMap.put("age_jr3", new Info("金融年代3", 40, "：同时持有思绪混乱和巴别塔誓言进入战斗并无漏"));
 		ageMap.put("age_yj1", new Info("拥挤年代1", 15, "：同时部署人数小于等于3完成战斗"));
-		ageMap.put("age_yj2", new Info("拥挤年代2",25, "：同时部署人数小于等于3无漏过关"));
+		ageMap.put("age_yj2", new Info("拥挤年代2", 25, "：同时部署人数小于等于3无漏过关"));
 		ageMap.put("age_yj3", new Info("拥挤年代3", 40, "：同时部署人数小于等于2无漏过关"));
 		ageMap.put("age_qg1", new Info("奇观年代1", 10, "：未使用灵感进入战斗并胜利"));
 		ageMap.put("age_qg2", new Info("奇观年代2", 15, "：未使用灵感进入战斗并全程无漏通关"));
@@ -115,6 +114,10 @@ public class ChuanrongController {
 	public static class ResponseData {
 		public String info;
 		public Double score;
+	}
+
+	public static double roundToTwoDecimalPlaces(double value) {
+		return Math.round(value * 100.0) / 100.0;
 	}
 	// @PostMapping("/submit")
 	// public ResponseEntity<Map<String, Integer>> handleFormSubmit(@RequestBody
@@ -157,6 +160,17 @@ public class ChuanrongController {
 		ResponseData response = new ResponseData();
 		response.info = stageMap.get(name).label + ", " + ageMap.get(age).label;
 
+		if (name.startsWith("end") && age.startsWith("age_qg")) {
+			baseScore += 50;
+			response.info += ", " + "奇观年代完成结局";
+		} else if (name.startsWith("end_3") && age.startsWith("age_mw")) {
+			baseScore += 50;
+			response.info += ", " + "魔王年代完成三结局";
+		} else if ((name.startsWith("end_1") || name.startsWith("end_2")) && age.startsWith("age_mw")) {
+			baseScore += 20;
+			response.info += ", " + "魔王年代完成一二结局";
+		}
+
 		// 处理 Collect 类型中的所有布尔字段
 		Integer multiplier = 0;
 		if (collect.nj) {
@@ -185,6 +199,7 @@ public class ChuanrongController {
 		}
 
 		response.score = (1.0 + multiplier / 100.0) * (baseScore + ageScore);
+		response.score = roundToTwoDecimalPlaces(response.score);
 
 		// System.out.println(baseScore);
 		// System.out.println(ageScore);
