@@ -13,7 +13,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8080", "https://chuan-rong-prts-rouge.vercel.app") // 允许的前端地址
+                        .allowedOrigins("http://localhost:8080", "https://chuan-rong-prts-rouge.vercel.app", "http://121.40.66.236:8080") // 允许的前端地址
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
