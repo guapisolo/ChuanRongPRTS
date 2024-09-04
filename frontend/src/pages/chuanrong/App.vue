@@ -253,7 +253,8 @@ export default {
 		},
 		async submitForm() {
 			try {
-				const response = await axios.post('http://localhost:8181/chuanrong/submit', this.formData);
+				// const response = await axios.post('http://localhost:8181/chuanrong/submit', this.formData);
+				const response = await axios.post('http://121.40.66.236:8181/chuanrong/submit', this.formData);
 				this.responseMessage = 'Form submitted successfully!';
 				this.responseData = response.data; // 解析并绑定响应数据
 				this.responseHistory.push({ ...this.responseData }); // 保存 responseData 的副本
@@ -269,7 +270,8 @@ export default {
 		},
 		async fetchStageMap() {
 			try {
-				const response = await axios.get('http://localhost:8181/chuanrong/stageMap');
+				// const response = await axios.get('http://localhost:8181/chuanrong/stageMap');
+				const response = await axios.get('http://121.40.66.236:8181/chuanrong/stageMap');
 				this.stageMap = response.data;
 			} catch (error) {
 				console.error('Error fetching stageMap:', error);
@@ -277,7 +279,8 @@ export default {
 		},
 		async fetchAgeMap() {
 			try {
-				const response = await axios.get('http://localhost:8181/chuanrong/ageMap');
+				// const response = await axios.get('http://localhost:8181/chuanrong/ageMap');
+				const response = await axios.get('http://121.40.66.236:8181/chuanrong/ageMap');
 				this.ageMap = response.data;
 			} catch (error) {
 				console.error('Error fetching ageMap:', error);
@@ -285,7 +288,8 @@ export default {
 		},
 		async fetchCollectMap() {
 			try {
-				const response = await axios.get('http://localhost:8181/chuanrong/collectMap');
+				// const response = await axios.get('http://localhost:8181/chuanrong/collectMap');
+				const response = await axios.get('http://121.40.66.236:8181/chuanrong/collectMap');
 				this.collectMap = response.data;
 			} catch (error) {
 				console.error('Error fetching collectMap:', error);
