@@ -245,10 +245,9 @@
 								<br>
 							</label>
 						</div>
-						<button class="blue-button" type="submit">Submit</button>
+						<button class="submit-button" type="submit"></button>
 					</div>
 				</div>
-				<br>
 			</form>
 			<div class="form-column-container-2">
 				<div v-if="responseHistory.length >= 0">
@@ -258,7 +257,7 @@
 						<li v-for="(response, index) in responseHistory" :key="index">
 							{{ response.info }}:
 							Score: {{ response.score }}
-							<button class="red-button" @click="removeResponse(index)">Delete</button>
+							<button class="delete-button" @click="removeResponse(index)"></button>
 						</li>
 					</ul>
 				</div>
@@ -495,14 +494,34 @@ export default {
 	/* align-items: center; */
 }
 
-.blue-button {
-	background-color: blue;
-	color: white;
+.submit-button {
+	background-image: url('assets/submit.png');
+	/* 设置未选中状态的背景图片 */
+	background-size: 150px 50px;
+	/* 设置背景图片的大小 */
+	background-repeat: no-repeat;
+	/* 防止背景图片重复 */
+	width: 150px;
+	/* 设置元素的宽度 */
+	height: 50px;
+	/* 设置元素的高度 */
+	vertical-align: middle;
+	/* 添加这一行 */
+	margin-top: 100px;
 }
 
-.red-button {
-	background-color: red;
-	color: white;
+.delete-button {
+	background-image: url('assets/delete.png');
+	/* 设置未选中状态的背景图片 */
+	background-size: 75px 25px;
+	/* 设置背景图片的大小 */
+	background-repeat: no-repeat;
+	/* 防止背景图片重复 */
+	width: 75px;
+	/* 设置元素的宽度 */
+	height: 25px;
+	/* 设置元素的高度 */
+	vertical-align: middle;
 }
 
 .centered-select {
@@ -665,6 +684,7 @@ table {
 }
 
 .image-radio:checked {
+	appearance: none;
 	background-image: url('assets/radio-yes.png');
 	/* 设置选中状态的背景图片 */
 	width: 20px;
@@ -691,6 +711,7 @@ table {
 }
 
 .image-checkbox:checked {
+	appearance: none;
 	background-image: url('assets/selected.png');
 	/* 设置选中状态的背景图片 */
 	width: 20px;
