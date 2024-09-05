@@ -101,119 +101,121 @@
 			</div>
 			<h1 style="text-align: center;">{{ selectedOption }}团队总分：{{ team_total }} </h1>
 			<component is="bigsubtitle" :text="'个人得分'"></component>
-			<div>
-				<component is="subtitle" :text="'结局情况'"></component>
-				<table class="table">
-					<tr>
-						<td>
-							<component is="single-tick" ref="end1" :label="'或然面纱'" :multiplier="40"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td>
-							<component is="single-tick" ref="end2" :label="'离歌的庭院'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td>
-							<component is="single-tick" ref="end3" :label="'紧急授课'" :multiplier="100"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_chaos3" :label="'混乱状态'" :multiplier="20"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_special3" :label="'奇观年代'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_mowang3" :label="'魔王年代'" :multiplier="20"
-								@tick-changed="recalTotal"></component>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<component is="single-tick" ref="end4" :label="'朝谒'" :multiplier="250"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_chaos4" :label="'混乱状态'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_special4" :label="'奇观年代'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_mowang4" :label="'魔王年代'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<component is="single-tick" ref="end5" :label="'圣城'" :multiplier="300"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_chaos5" :label="'混乱状态'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_special5" :label="'奇观年代'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-						<td>
-							<component is="single-tick" ref="end_mowang5" :label="'魔王年代'" :multiplier="50"
-								@tick-changed="recalTotal"></component>
-						</td>
-					</tr>
-				</table>
-				<div class="summary">总分：{{ total_end }} </div>
-			</div>
-			<div>
-				<component is="subtitle" :text="'特殊关卡'"></component>
-				<table>
-					<component is="input-text" ref="special1" :label="'(紧急)信号灯'" :multiplier="30"
-						@text-input-changed="recalTotal">
-					</component>
-					<component is="input-text" ref="special2" :label="'(紧急)劫虚济实'" :multiplier="30"
-						@text-input-changed="recalTotal">
-					</component>
-					<component is="input-text" ref="special3" :label="'(紧急)战场侧面'" :multiplier="30"
-						@text-input-changed="recalTotal">
-					</component>
-					<component is="input-text" ref="special4" :label="'(紧急)鸭速公路'" :multiplier="50"
-						@text-input-changed="recalTotal">
-					</component>
-					<component is="input-text" ref="special5" :label="'击杀鸭狗熊鼠'" :multiplier="10"
-						@text-input-changed="recalTotal">
-					</component>
-					<component is="input-text" ref="special6" :label="'击杀门'" :multiplier="5"
-						@text-input-changed="recalTotal">
-					</component>
-				</table>
-				<div class="summary">总分：{{ total_special }} </div>
-			</div>
-			<div>
-				<component is="subtitle" :text="'结算分'"></component>
-				<table class="table">
-					<component is="naive-input-text" ref="settlement_" :label="''" @text-input-changed="recalTotal">
-					</component>
-				</table>
+			<div class="personal-column-container">
+
+				<div class="personal-column-1">
+					<component is="subtitle" :text="'结局情况'"></component>
+					<table class="table">
+						<tr>
+							<td>
+								<component is="single-tick" ref="end1" :label="'或然面纱'" :multiplier="40"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>
+								<component is="single-tick" ref="end2" :label="'离歌的庭院'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>
+								<component is="single-tick" ref="end3" :label="'紧急授课'" :multiplier="100"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_chaos3" :label="'混乱状态'" :multiplier="20"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_special3" :label="'奇观年代'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_mowang3" :label="'魔王年代'" :multiplier="20"
+									@tick-changed="recalTotal"></component>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<component is="single-tick" ref="end4" :label="'朝谒'" :multiplier="250"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_chaos4" :label="'混乱状态'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_special4" :label="'奇观年代'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_mowang4" :label="'魔王年代'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<component is="single-tick" ref="end5" :label="'圣城'" :multiplier="300"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_chaos5" :label="'混乱状态'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_special5" :label="'奇观年代'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+							<td>
+								<component is="single-tick" ref="end_mowang5" :label="'魔王年代'" :multiplier="50"
+									@tick-changed="recalTotal"></component>
+							</td>
+						</tr>
+					</table>
+					<div class="summary">总分：{{ total_end }} </div>
+				</div>
+				<div class="personal-column-2">
+					<component is="subtitle" :text="'特殊关卡'"></component>
+					<table>
+						<component is="input-text" ref="special1" :label="'(紧急)信号灯'" :multiplier="30"
+							@text-input-changed="recalTotal">
+						</component>
+						<component is="input-text" ref="special2" :label="'(紧急)劫虚济实'" :multiplier="30"
+							@text-input-changed="recalTotal">
+						</component>
+						<component is="input-text" ref="special3" :label="'(紧急)战场侧面'" :multiplier="30"
+							@text-input-changed="recalTotal">
+						</component>
+						<component is="input-text" ref="special4" :label="'(紧急)鸭速公路'" :multiplier="50"
+							@text-input-changed="recalTotal">
+						</component>
+						<component is="input-text" ref="special5" :label="'击杀鸭狗熊鼠'" :multiplier="10"
+							@text-input-changed="recalTotal">
+						</component>
+						<component is="input-text" ref="special6" :label="'击杀门'" :multiplier="5"
+							@text-input-changed="recalTotal">
+						</component>
+					</table>
+					<div class="summary">总分：{{ total_special }} </div>
+
+					<component is="subtitle" :text="'结算分'"></component>
+					<table class="table">
+						<component is="naive-input-text" ref="settlement_" :label="''" @text-input-changed="recalTotal">
+						</component>
+					</table>
+				</div>
 			</div>
 			<form @submit.prevent="submitForm">
 				<!-- 表单字段 -->
-				<div class="app-column-container">
-					<div class="app-column-1">
+				<div class="form-column-container">
+					<div class="form-column-1">
 						<h3>关卡</h3>
 						<div v-if="stageMap">
 							<label v-for="(info, key) in stageMap" :key="key">
@@ -223,7 +225,7 @@
 							</label>
 						</div>
 					</div>
-					<div class="app-column-2">
+					<div class="form-column-2">
 						<h3>年代</h3>
 						<div v-if="ageMap">
 							<label v-for="(info, key) in ageMap" :key="key">
@@ -235,7 +237,8 @@
 						<h3>树洞藏品</h3>
 						<div v-if="collectMap">
 							<label v-for="(info, key) in collectMap" :key="key">
-								<input type="checkbox" class="image-checkbox" v-model="formData.collect[key]" :value="key" />
+								<input type="checkbox" class="image-checkbox" v-model="formData.collect[key]"
+									:value="key" />
 								{{ info.label }} ({{ info.score }})
 								<br>
 							</label>
@@ -435,19 +438,39 @@ export default {
 	color: white;
 }
 
-.app-column-container {
+.personal-column-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
 
-.app-column-1 {
+.personal-column-1 {
+	flex: 25;
+	align-self: flex-start;
+	margin-left: 150px;
+}
+
+.personal-column-2 {
+	flex: 18;
+	align-self: flex-start;
+	margin-right: 250px;
+}
+
+
+.form-column-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-column-1 {
 	flex: 18;
 	align-self: flex-start;
 }
 
-.app-column-2 {
+.form-column-2 {
 	flex: 30;
 	align-self: flex-start;
 }
@@ -524,7 +547,7 @@ export default {
 	/* 调整边距 */
 }
 
-.app-column-container {
+.form-column-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -543,18 +566,18 @@ export default {
 @media (min-width: 1200px) {
 
 	/* 当屏幕宽度大于或等于 1200px 时 */
-	.app-column-container {
+	.form-column-container {
 		flex-direction: row;
 		/* 变为三列 */
 	}
 }
 
-.app-column-1 {
+.form-column-1 {
 	flex: 18;
 	align-self: flex-start;
 }
 
-.app-column-2 {
+.form-column-2 {
 	flex: 30;
 	align-self: flex-start;
 }
@@ -607,33 +630,54 @@ table {
 }
 
 .image-radio {
-    appearance: none; /* 移除默认样式 */
-    background-image: url('assets/radio-no.png'); /* 设置未选中状态的背景图片 */
-    background-size: cover; /* 使背景图片覆盖整个 checkbox */
-    width: 20px; /* 根据需要调整 checkbox 的大小 */
-    height: 20px; /* 根据需要调整 checkbox 的大小 */
-    vertical-align: middle; /* 添加这一行 */
+	appearance: none;
+	/* 移除默认样式 */
+	background-image: url('assets/radio-no.png');
+	/* 设置未选中状态的背景图片 */
+	background-size: cover;
+	/* 使背景图片覆盖整个 checkbox */
+	width: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	height: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	vertical-align: middle;
+	/* 添加这一行 */
 }
 
 .image-radio:checked {
-    background-image: url('assets/radio-yes.png'); /* 设置选中状态的背景图片 */
-    width: 20px; /* 根据需要调整 checkbox 的大小 */
-    height: 20px; /* 根据需要调整 checkbox 的大小 */
-    vertical-align: middle; /* 添加这一行 */
+	background-image: url('assets/radio-yes.png');
+	/* 设置选中状态的背景图片 */
+	width: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	height: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	vertical-align: middle;
+	/* 添加这一行 */
 }
+
 .image-checkbox {
-    appearance: none; /* 移除默认样式 */
-    background-image: url('assets/blank.png'); /* 设置未选中状态的背景图片 */
-    background-size: cover; /* 使背景图片覆盖整个 checkbox */
-    width: 20px; /* 根据需要调整 checkbox 的大小 */
-    height: 20px; /* 根据需要调整 checkbox 的大小 */
-    vertical-align: middle; /* 添加这一行 */
+	appearance: none;
+	/* 移除默认样式 */
+	background-image: url('assets/blank.png');
+	/* 设置未选中状态的背景图片 */
+	background-size: cover;
+	/* 使背景图片覆盖整个 checkbox */
+	width: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	height: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	vertical-align: middle;
+	/* 添加这一行 */
 }
 
 .image-checkbox:checked {
-    background-image: url('assets/selected.png'); /* 设置选中状态的背景图片 */
-    width: 20px; /* 根据需要调整 checkbox 的大小 */
-    height: 20px; /* 根据需要调整 checkbox 的大小 */
-    vertical-align: middle; /* 添加这一行 */
+	background-image: url('assets/selected.png');
+	/* 设置选中状态的背景图片 */
+	width: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	height: 20px;
+	/* 根据需要调整 checkbox 的大小 */
+	vertical-align: middle;
+	/* 添加这一行 */
 }
 </style>
