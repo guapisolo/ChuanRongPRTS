@@ -52,22 +52,22 @@ public class ChuanrongController {
 		stageMap.put("urgent_mqgs", new Info("谋求共识", 60));
 		stageMap.put("urgent_ssdkq", new Info("神圣的渴求", 50));
 
-		stageMap.put("urgent_hrms", new Info("或然面纱", 40));
-		stageMap.put("urgent_lgdty", new Info("离歌的庭院", 50));
+		// stageMap.put("urgent_hrms", new Info("或然面纱", 40));
+		// stageMap.put("urgent_lgdty", new Info("离歌的庭院", 50));
 
-		stageMap.put("end_1", new Info("一结局紧急授课", 100));
-		stageMap.put("end_2", new Info("二结局朝谒", 250));
-		stageMap.put("end_3", new Info("三结局圣城", 300));
-		stageMap.put("end_1_swhl", new Info("思维混乱一结局", 120));
-		stageMap.put("end_2_swhl", new Info("思维混乱二结局", 300));
-		stageMap.put("end_3_swhl", new Info("思维混乱三结局", 350));
+		// stageMap.put("end_1", new Info("一结局紧急授课", 100));
+		// stageMap.put("end_2", new Info("二结局朝谒", 250));
+		// stageMap.put("end_3", new Info("三结局圣城", 300));
+		// stageMap.put("end_1_swhl", new Info("思维混乱一结局", 120));
+		// stageMap.put("end_2_swhl", new Info("思维混乱二结局", 300));
+		// stageMap.put("end_3_swhl", new Info("思维混乱三结局", 350));
 	}
 
 	public static final Map<String, Info> ageMap;
 	static {
 		ageMap = new LinkedHashMap<>();
 		ageMap.put("age_null", new Info("无年代加分", 0, "：无年代，繁荣年代，哲学年代，悖论年代"));
-		ageMap.put("age_mw", new Info("魔王年代", 0, "：完成结局(20, 50, 50)"));
+		// ageMap.put("age_mw", new Info("魔王年代", 0, "：完成结局(20, 50, 50)"));
 		ageMap.put("age_tz1", new Info("天灾年代1", 5, "：清理至少2根年代之刺"));
 		ageMap.put("age_tz2", new Info("天灾年代2", 10, "：清理至少3根年代之刺，饮泣之刺视为3根年代之刺"));
 		ageMap.put("age_tz3", new Info("天灾年代3", 15, "：清理至少4根年代之刺，饮泣之刺视为3根年代之刺"));

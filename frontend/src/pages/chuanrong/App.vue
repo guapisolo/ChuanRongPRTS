@@ -101,6 +101,84 @@
 			</div>
 			<h1 style="text-align: center;">{{ selectedOption }}团队总分：{{ team_total }} </h1>
 			<div>
+				<component is="subtitle" :text="'结局情况'"></component>
+				<table class="table">
+					<tr>
+						<td>
+							<component is="single-tick" ref="end1" :label="'或然面纱'" :multiplier="40"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<component is="single-tick" ref="end2" :label="'离歌的庭院'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<component is="single-tick" ref="end3" :label="'紧急授课'" :multiplier="100"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_chaos3" :label="'混乱状态'" :multiplier="20"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_special3" :label="'奇观年代'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_mowang3" :label="'魔王年代'" :multiplier="20"
+								@tick-changed="recalTotal"></component>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<component is="single-tick" ref="end4" :label="'朝谒'" :multiplier="250"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_chaos4" :label="'混乱状态'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_special4" :label="'奇观年代'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_mowang4" :label="'魔王年代'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<component is="single-tick" ref="end5" :label="'圣城'" :multiplier="300"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_chaos5" :label="'混乱状态'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_special5" :label="'奇观年代'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+						<td>
+							<component is="single-tick" ref="end_mowang5" :label="'魔王年代'" :multiplier="50"
+								@tick-changed="recalTotal"></component>
+						</td>
+					</tr>
+				</table>
+				<div class="summary">总分：{{ total_end }} </div>
+			</div>
+			<div>
 				<component is="subtitle" :text="'特殊关卡'"></component>
 				<table>
 					<component is="input-text" ref="special1" :label="'(紧急)信号灯'" :multiplier="30"
@@ -333,6 +411,10 @@ export default {
 				.filter(ref => ref.startsWith('player'))
 				.reduce((total, ref) => total + this.$refs[ref].result, 0);
 
+			this.total_end = Object.keys(this.$refs)
+				.filter(ref => ref.startsWith('end'))
+				.reduce((total, ref) => total + this.$refs[ref].result, 0);
+
 			this.total_special = Object.keys(this.$refs)
 				.filter(ref => ref.startsWith('special'))
 				.reduce((total, ref) => total + this.$refs[ref].result, 0);
@@ -342,7 +424,7 @@ export default {
 				.reduce((total, ref) => total + this.$refs[ref].result, 0);
 
 
-			this.personal_total = this.total_special
+			this.personal_total = this.total_end + this.total_special
 				+ this.total_settlement + this.totalScore();
 
 			this.team_total = this.total_ban + this.total_coins + this.total_player;
