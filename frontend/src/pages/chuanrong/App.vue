@@ -211,12 +211,12 @@
 						</component>
 					</table>
 				</div>
-			</div>
+			</div>"
 			<form @submit.prevent="submitForm">
 				<!-- 表单字段 -->
-				<div class="form-column-container">
+				<div class="form-column-container-1">
 					<div class="form-column-1">
-						<h3>关卡</h3>
+						<component is="subtitle" :text="'关卡'"></component>
 						<div v-if="stageMap">
 							<label v-for="(info, key) in stageMap" :key="key">
 								<input type="radio" class="image-radio" v-model="formData.name" :value="key" />
@@ -226,7 +226,7 @@
 						</div>
 					</div>
 					<div class="form-column-2">
-						<h3>年代</h3>
+						<component is="subtitle" :text="'年代'"></component>
 						<div v-if="ageMap">
 							<label v-for="(info, key) in ageMap" :key="key">
 								<input type="radio" class="image-radio" v-model="formData.age" :value="key" />
@@ -234,7 +234,9 @@
 								<br>
 							</label>
 						</div>
-						<h3>树洞藏品</h3>
+					</div>
+					<div class="form-column-3">
+						<component is="subtitle" :text="'树洞藏品'"></component>
 						<div v-if="collectMap">
 							<label v-for="(info, key) in collectMap" :key="key">
 								<input type="checkbox" class="image-checkbox" v-model="formData.collect[key]"
@@ -243,29 +245,23 @@
 								<br>
 							</label>
 						</div>
+						<button class="blue-button" type="submit">Submit</button>
 					</div>
 				</div>
 				<br>
-				<button class="blue-button" type="submit">Submit</button>
 			</form>
-			<!-- <div v-if="responseMessage">
-			{{ responseMessage }}
-		</div> -->
-			<!-- <div v-if="responseData">
-			<h3>Response Data:</h3>
-			<p>Info: {{ responseData.info }}</p>
-			<p>Score: {{ responseData.score }}</p>
-		</div> -->
-			<div v-if="responseHistory.length >= 0">
-				<h3>Total Score: {{ totalScore() }}</h3>
-				<h3>Response History:</h3>
-				<ul>
-					<li v-for="(response, index) in responseHistory" :key="index">
-						{{ response.info }}:
-						Score: {{ response.score }}
-						<button class="red-button" @click="removeResponse(index)">Delete</button>
-					</li>
-				</ul>
+			<div class="form-column-container-2">
+				<div v-if="responseHistory.length >= 0">
+					<h3>关卡总分: {{ totalScore() }}</h3>
+					<h3>关卡记录:</h3>
+					<ul>
+						<li v-for="(response, index) in responseHistory" :key="index">
+							{{ response.info }}:
+							Score: {{ response.score }}
+							<button class="red-button" @click="removeResponse(index)">Delete</button>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<h1 style="text-align: center;">选手总分：{{ personal_total }} </h1>
 		</div>
@@ -458,21 +454,45 @@ export default {
 }
 
 
-.form-column-container {
+.form-column-container-1 {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center; */
 }
 
 .form-column-1 {
-	flex: 18;
-	align-self: flex-start;
+	flex: 20;
+	display: flex;
+	flex-direction: column;
+	/* 如果你希望子元素垂直居中 */
+	align-items: center;
+	/* 水平居中 */
 }
 
 .form-column-2 {
 	flex: 30;
-	align-self: flex-start;
+	display: flex;
+	flex-direction: column;
+	/* 如果你希望子元素垂直居中 */
+	align-items: center;
+	/* 水平居中 */
+}
+
+.form-column-3 {
+	flex: 10;
+	display: flex;
+	flex-direction: column;
+	/* 如果你希望子元素垂直居中 */
+	align-items: center;
+	/* 水平居中 */
+}
+
+.form-column-container-2 {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	/* align-items: center; */
 }
 
 .blue-button {
