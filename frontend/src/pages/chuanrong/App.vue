@@ -152,11 +152,14 @@
 						</div>
 						<h3>树洞藏品</h3>
 						<div v-if="collectMap">
-							<label v-for="(info, key) in collectMap" :key="key">
+							<!-- <label v-for="(info, key) in collectMap" :key="key">
 								<input type="checkbox" v-model="formData.collect[key]" :value="key" />
 								{{ info.label }} ({{ info.score }})
 								<br>
-							</label>
+							</label> -->
+							<TobackSingleTick v-for="(info, key) in collectMap" :key="key" :label="info.label"
+								:score="info.score" :value="key" :checked="formData.collect[key]"
+								@update:checked="formData.collect[key] = $event" />
 						</div>
 					</div>
 				</div>
@@ -194,6 +197,8 @@ import SingleTick from './components/single-tick.vue';
 import Subtitle from './components/subtitle.vue';
 import NaiveInputText from './components/naive-input-text.vue';
 import Bigsubtitle from './components/bigsubtitle.vue';
+// import TobackRadio from './components/toback-radio.vue';
+import TobackSingleTick from './components/toback-single-tick.vue';
 
 export default {
 	components: {
@@ -201,7 +206,9 @@ export default {
 		SingleTick,
 		Subtitle,
 		NaiveInputText,
-		Bigsubtitle
+		Bigsubtitle,
+		// TobackRadio,
+		TobackSingleTick
 	},
 	data() {
 		return {
