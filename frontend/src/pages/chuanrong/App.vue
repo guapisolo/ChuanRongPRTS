@@ -217,7 +217,7 @@
 						<h3>关卡</h3>
 						<div v-if="stageMap">
 							<label v-for="(info, key) in stageMap" :key="key">
-								<input type="radio" v-model="formData.name" :value="key" />
+								<input type="radio" class="image-radio" v-model="formData.name" :value="key" />
 								{{ info.label }} ({{ info.score }})
 								<br>
 							</label>
@@ -227,21 +227,18 @@
 						<h3>年代</h3>
 						<div v-if="ageMap">
 							<label v-for="(info, key) in ageMap" :key="key">
-								<input type="radio" v-model="formData.age" :value="key" />
+								<input type="radio" class="image-radio" v-model="formData.age" :value="key" />
 								{{ info.label }}{{ info.description }} ({{ info.score }})
 								<br>
 							</label>
 						</div>
 						<h3>树洞藏品</h3>
 						<div v-if="collectMap">
-							<!-- <label v-for="(info, key) in collectMap" :key="key">
-								<input type="checkbox" v-model="formData.collect[key]" :value="key" />
+							<label v-for="(info, key) in collectMap" :key="key">
+								<input type="checkbox" class="image-checkbox" v-model="formData.collect[key]" :value="key" />
 								{{ info.label }} ({{ info.score }})
 								<br>
-							</label> -->
-							<TobackSingleTick v-for="(info, key) in collectMap" :key="key" :label="info.label"
-								:score="info.score" :value="key" :checked="formData.collect[key]"
-								@update:checked="formData.collect[key] = $event" />
+							</label>
 						</div>
 					</div>
 				</div>
@@ -279,8 +276,6 @@ import SingleTick from './components/single-tick.vue';
 import Subtitle from './components/subtitle.vue';
 import NaiveInputText from './components/naive-input-text.vue';
 import Bigsubtitle from './components/bigsubtitle.vue';
-// import TobackRadio from './components/toback-radio.vue';
-import TobackSingleTick from './components/toback-single-tick.vue';
 
 export default {
 	components: {
@@ -288,9 +283,7 @@ export default {
 		SingleTick,
 		Subtitle,
 		NaiveInputText,
-		Bigsubtitle,
-		// TobackRadio,
-		TobackSingleTick
+		Bigsubtitle
 	},
 	data() {
 		return {
@@ -611,5 +604,36 @@ table {
 	font-size: 18px;
 	font-weight: bold;
 	text-align: center;
+}
+
+.image-radio {
+    appearance: none; /* 移除默认样式 */
+    background-image: url('assets/radio-no.png'); /* 设置未选中状态的背景图片 */
+    background-size: cover; /* 使背景图片覆盖整个 checkbox */
+    width: 20px; /* 根据需要调整 checkbox 的大小 */
+    height: 20px; /* 根据需要调整 checkbox 的大小 */
+    vertical-align: middle; /* 添加这一行 */
+}
+
+.image-radio:checked {
+    background-image: url('assets/radio-yes.png'); /* 设置选中状态的背景图片 */
+    width: 20px; /* 根据需要调整 checkbox 的大小 */
+    height: 20px; /* 根据需要调整 checkbox 的大小 */
+    vertical-align: middle; /* 添加这一行 */
+}
+.image-checkbox {
+    appearance: none; /* 移除默认样式 */
+    background-image: url('assets/blank.png'); /* 设置未选中状态的背景图片 */
+    background-size: cover; /* 使背景图片覆盖整个 checkbox */
+    width: 20px; /* 根据需要调整 checkbox 的大小 */
+    height: 20px; /* 根据需要调整 checkbox 的大小 */
+    vertical-align: middle; /* 添加这一行 */
+}
+
+.image-checkbox:checked {
+    background-image: url('assets/selected.png'); /* 设置选中状态的背景图片 */
+    width: 20px; /* 根据需要调整 checkbox 的大小 */
+    height: 20px; /* 根据需要调整 checkbox 的大小 */
+    vertical-align: middle; /* 添加这一行 */
 }
 </style>
