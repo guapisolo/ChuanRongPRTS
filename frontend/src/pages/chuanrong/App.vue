@@ -1,9 +1,9 @@
 <template>
 	<div class="app-container">
 		<div id="app">
-			<div>
+			<!-- <div>
 				<h1 style="text-align: center;">川蓉杯计算器</h1>
-			</div>
+			</div> -->
 			<component is="bigsubtitle" :text="'团队得分'"></component>
 			<div class="centered-select">
 				<select v-model="selectedOption" class="custom-select">
@@ -100,6 +100,7 @@
 				</div>
 			</div>
 			<h1 style="text-align: center;">{{ selectedOption }}团队总分：{{ team_total }} </h1>
+			<component is="bigsubtitle" :text="'个人得分'"></component>
 			<div>
 				<component is="subtitle" :text="'结局情况'"></component>
 				<table class="table">
@@ -193,7 +194,10 @@
 					<component is="input-text" ref="special4" :label="'(紧急)鸭速公路'" :multiplier="50"
 						@text-input-changed="recalTotal">
 					</component>
-					<component is="input-text" ref="special5" :label="'击杀鸭狗熊鼠门'" :multiplier="5"
+					<component is="input-text" ref="special5" :label="'击杀鸭狗熊鼠'" :multiplier="10"
+						@text-input-changed="recalTotal">
+					</component>
+					<component is="input-text" ref="special6" :label="'击杀门'" :multiplier="5"
 						@text-input-changed="recalTotal">
 					</component>
 				</table>
@@ -500,7 +504,7 @@ export default {
 }
 
 .app-container {
-	padding-top: 1100px;
+	padding-top: 1000px;
 	/* background-color: #000; */
 	background-image: url('assets/background.jpg');
 	background-size: cover;
