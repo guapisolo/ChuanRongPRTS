@@ -214,13 +214,18 @@
 			</div>"
 			<form @submit.prevent="submitForm">
 				<!-- 表单字段 -->
-				<div class="form-column-container-1">
+				<div class="form-sub-container-1">
 					<div class="form-column-1">
 						<component is="subtitle" :text="'关卡'"></component>
 						<div v-if="stageMap">
 							<label v-for="(info, key) in stageMap" :key="key">
-								<input type="radio" class="image-radio" v-model="formData.name" :value="key" />
-								{{ info.label }} ({{ info.score }})
+								<span v-if="key.startsWith('urgent_info')">
+									{{ info.label }}
+								</span>
+								<span v-else>
+									<input type="radio" class="image-radio" v-model="formData.name" :value="key" />
+									{{ info.label }} ({{ info.score }})
+								</span>
 								<br>
 							</label>
 						</div>
@@ -229,12 +234,21 @@
 						<component is="subtitle" :text="'年代'"></component>
 						<div v-if="ageMap">
 							<label v-for="(info, key) in ageMap" :key="key">
-								<input type="radio" class="image-radio" v-model="formData.age" :value="key" />
-								{{ info.label }}{{ info.description }} ({{ info.score }})
+								<span v-if="key.startsWith('age_info')">
+									{{ info.label }}
+								</span>
+								<span v-else>
+									<input type="radio" class="image-radio" v-model="formData.age" :value="key" />
+									{{ info.label }}{{ info.description }} ({{ info.score }})
+								</span>
+								<!-- <input type="radio" class="image-radio" v-model="formData.age" :value="key" />
+								{{ info.label }}{{ info.description }} ({{ info.score }}) -->
 								<br>
 							</label>
 						</div>
 					</div>
+				</div>
+				<div class="form-sub-container-2">
 					<div class="form-column-3">
 						<component is="subtitle" :text="'树洞藏品'"></component>
 						<div v-if="collectMap">
@@ -247,21 +261,21 @@
 						</div>
 						<button class="submit-button" type="submit"></button>
 					</div>
+					<div class="form-column-4">
+						<div v-if="responseHistory.length >= 0">
+							<h3>关卡总分: {{ totalScore() }}</h3>
+							<h3>关卡记录:</h3>
+							<ul>
+								<li v-for="(response, index) in responseHistory" :key="index">
+									{{ response.info }}:
+									Score: {{ response.score }}
+									<button class="delete-button" @click="removeResponse(index)" type="button"></button>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</form>
-			<div class="form-column-container-2">
-				<div v-if="responseHistory.length >= 0">
-					<h3>关卡总分: {{ totalScore() }}</h3>
-					<h3>关卡记录:</h3>
-					<ul>
-						<li v-for="(response, index) in responseHistory" :key="index">
-							{{ response.info }}:
-							Score: {{ response.score }}
-							<button class="delete-button" @click="removeResponse(index)"></button>
-						</li>
-					</ul>
-				</div>
-			</div>
 			<h1 style="text-align: center;">选手总分：{{ personal_total }} </h1>
 		</div>
 	</div>
@@ -429,296 +443,5 @@ export default {
 </script>
 
 <style scoped>
-* {
-	color: white;
-}
-
-.personal-column-container {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-}
-
-.personal-column-1 {
-	flex: 25;
-	align-self: flex-start;
-	margin-left: 150px;
-}
-
-.personal-column-2 {
-	flex: 18;
-	align-self: flex-start;
-	margin-right: 250px;
-}
-
-
-.form-column-container-1 {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	/* align-items: center; */
-}
-
-.form-column-1 {
-	flex: 20;
-	display: flex;
-	flex-direction: column;
-	/* 如果你希望子元素垂直居中 */
-	align-items: center;
-	/* 水平居中 */
-}
-
-.form-column-2 {
-	flex: 30;
-	display: flex;
-	flex-direction: column;
-	/* 如果你希望子元素垂直居中 */
-	align-items: center;
-	/* 水平居中 */
-}
-
-.form-column-3 {
-	flex: 10;
-	display: flex;
-	flex-direction: column;
-	/* 如果你希望子元素垂直居中 */
-	align-items: center;
-	/* 水平居中 */
-}
-
-.form-column-container-2 {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	/* align-items: center; */
-}
-
-.submit-button {
-	background-image: url('assets/submit.png');
-	/* 设置未选中状态的背景图片 */
-	background-size: 150px 50px;
-	/* 设置背景图片的大小 */
-	background-repeat: no-repeat;
-	/* 防止背景图片重复 */
-	width: 150px;
-	/* 设置元素的宽度 */
-	height: 50px;
-	/* 设置元素的高度 */
-	vertical-align: middle;
-	/* 添加这一行 */
-	margin-top: 100px;
-}
-
-.delete-button {
-	background-image: url('assets/delete.png');
-	/* 设置未选中状态的背景图片 */
-	background-size: 75px 25px;
-	/* 设置背景图片的大小 */
-	background-repeat: no-repeat;
-	/* 防止背景图片重复 */
-	width: 75px;
-	/* 设置元素的宽度 */
-	height: 25px;
-	/* 设置元素的高度 */
-	vertical-align: middle;
-}
-
-.centered-select {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-.custom-select {
-	padding: 10px;
-	font-size: 16px;
-	background: url('assets/input.png') no-repeat right center;
-	background-size: 20px auto;
-	/* 调整背景图片的大小 */
-	-webkit-appearance: none;
-	/* 隐藏默认的下拉箭头 */
-	-moz-appearance: none;
-	/* 隐藏默认的下拉箭头 */
-	appearance: none;
-	/* 隐藏默认的下拉箭头 */
-	color: #d7aebe;
-	/* 修改字体颜色 */
-	border: none;
-	/* 去掉白色边框 */
-	font-size: 24px;
-	text-align: center;
-	/* 使选项文字居中 */
-	text-align-last: center;
-	/* 使选中的选项文字居中 */
-}
-
-.select {
-	padding: 10px;
-	font-size: 16px;
-}
-
-.app-container {
-	padding-top: 1000px;
-	/* background-color: #000; */
-	background-image: url('assets/background.jpg');
-	background-size: cover;
-}
-
-.team-column-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.team-column-1 {
-	flex: 20;
-	align-self: flex-start;
-	margin-left: 100px;
-	/* 调整边距 */
-}
-
-.team-column-2 {
-	flex: 20;
-	align-self: flex-start;
-	margin-right: 100px;
-	/* 调整边距 */
-}
-
-.form-column-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-@media (min-width: 1200px) {
-
-	/* 当屏幕宽度大于或等于 1200px 时 */
-	.team-column-container {
-		flex-direction: row;
-		/* 变为两列 */
-	}
-}
-
-@media (min-width: 1200px) {
-
-	/* 当屏幕宽度大于或等于 1200px 时 */
-	.form-column-container {
-		flex-direction: row;
-		/* 变为三列 */
-	}
-}
-
-.form-column-1 {
-	flex: 18;
-	align-self: flex-start;
-}
-
-.form-column-2 {
-	flex: 30;
-	align-self: flex-start;
-}
-
-.info-column-container {
-	display: flex;
-	justify-content: space-between;
-}
-
-.info-column {
-	flex: 1;
-	margin: 0 10px;
-}
-
-.double_column_table {
-	margin: auto;
-	justify-content: center;
-	display: flex;
-}
-
-table {
-	margin: auto;
-}
-
-.app {
-	width: 100%;
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 20px;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	/* background-color: #000; */
-	/* 如果需要，可以添加这一行来使背景图片覆盖整个元素 */
-	color: #d7aebe;
-}
-
-@media (max-width: 1200px) {
-
-	/* 当屏幕宽度大于或等于 1200px 时 */
-	.app {
-		max-width: 400px;
-	}
-}
-
-.summary {
-	margin-top: 18px;
-	font-size: 18px;
-	font-weight: bold;
-	text-align: center;
-}
-
-.image-radio {
-	appearance: none;
-	/* 移除默认样式 */
-	background-image: url('assets/radio-no.png');
-	/* 设置未选中状态的背景图片 */
-	background-size: cover;
-	/* 使背景图片覆盖整个 checkbox */
-	width: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	height: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	vertical-align: middle;
-	/* 添加这一行 */
-}
-
-.image-radio:checked {
-	appearance: none;
-	background-image: url('assets/radio-yes.png');
-	/* 设置选中状态的背景图片 */
-	width: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	height: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	vertical-align: middle;
-	/* 添加这一行 */
-}
-
-.image-checkbox {
-	appearance: none;
-	/* 移除默认样式 */
-	background-image: url('assets/blank.png');
-	/* 设置未选中状态的背景图片 */
-	background-size: cover;
-	/* 使背景图片覆盖整个 checkbox */
-	width: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	height: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	vertical-align: middle;
-	/* 添加这一行 */
-}
-
-.image-checkbox:checked {
-	appearance: none;
-	background-image: url('assets/selected.png');
-	/* 设置选中状态的背景图片 */
-	width: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	height: 20px;
-	/* 根据需要调整 checkbox 的大小 */
-	vertical-align: middle;
-	/* 添加这一行 */
-}
+@import './assets/App.css';
 </style>
